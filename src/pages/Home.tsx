@@ -1,33 +1,44 @@
-import React from 'react';
-
-import 'bulma/css/bulma.css';
-import Card from '../molecules/Card';
+import React, { useState } from 'react';
 import data from '../data/data';
 
-import './Home.scss';
+import Card from '../molecules/Card';
 import Cart from '../molecules/Cart';
 
+import { CartItemProps } from '../atoms/CartItem/models.d';
+import './Home.scss';
+import 'bulma/css/bulma.css';
+
 const Home = () => {
-  const renderCards = data.map((item) => (
+  const [itemsInCart, setItemsInCart] = useState<CartItemProps[]>([]);
+
+  const addToCart = (index: number) => setItemsInCart((prevState) => [...prevState, data[index]]);
+  const removeFromCart = (itemIndex: number) => setItemsInCart(
+    (prevState) => prevState.filter((element, index) => index !== itemIndex),
+  );
+
+  const renderCards = data.map(({ image, title, price }, index) => (
     <Card
-      image={item.image}
-      title={item.title}
-      price={item.price}
-      button="click"
-      onClick={() => console.log('click')}
+      key={title}
+      image={image}
+      title={title}
+      price={price}
+      button="Add to cart"
+      onClick={() => addToCart(index)}
     />
   ));
 
-  const itemsInCart = data.map((item) => ({
-    title: item.title,
-    price: item.price,
+  const mappedItemsInCart = itemsInCart.map(({ title, price }, index) => ({
+    title,
+    price,
+    onRemove: () => removeFromCart(index),
   }));
+
   return (
     <div className="home">
       <div className="home__grid">
         {renderCards}
       </div>
-      <Cart items={itemsInCart} />
+      <Cart items={mappedItemsInCart} />
     </div>
   );
 };

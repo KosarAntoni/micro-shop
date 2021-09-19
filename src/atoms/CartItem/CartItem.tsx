@@ -3,11 +3,13 @@ import classNames from 'classnames';
 import { CartItemProps } from './models.d';
 
 import './CartItem.scss';
+import Button from '../Button';
 
 const CartItem: FC<CartItemProps> = ({
-  title, price, isListItem, customClass,
+  title, price, isListItem, onRemove = () => {
+  }, customClass,
 }) => {
-  const CartItemClasses = classNames('cart-item', 'is-flex', 'is-justify-content-space-between', customClass);
+  const CartItemClasses = classNames('cart-item', customClass);
 
   const renderCartItemContent = (
     <>
@@ -18,9 +20,13 @@ const CartItem: FC<CartItemProps> = ({
     </>
   );
 
+  const renderButton = onRemove
+        && <Button onClick={onRemove} customClass="is-small is-inverted">&#10005;</Button>;
+
   const renderCartItem = isListItem ? (
     <li className={CartItemClasses}>
       {renderCartItemContent}
+      {renderButton}
     </li>
   ) : (
     <div className={CartItemClasses}>

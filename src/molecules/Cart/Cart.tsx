@@ -2,22 +2,30 @@ import React, { FC } from 'react';
 import Heading from '../../atoms/Heading';
 import { CartProps, ItemType } from './models.d';
 import CartItem from '../../atoms/CartItem';
+import Input from '../../atoms/Input';
+import './Cart.scss';
 
 const Cart: FC<CartProps> = ({ items }) => {
-  const renderCartItems = items.map(({ title, price }: ItemType) => (
+  const wholePrice = items.length
+    ? items.map((item) => item.price).reduce((a, b) => a + b) : 0;
+
+  const renderCartItems = items.map(({ title, price, onRemove }: ItemType, index) => (
     <CartItem
+      key={index}
       title={title}
       price={price}
+      onRemove={onRemove}
+      isListItem
     />
   ));
 
   return (
-    <article className="panel is-link">
+    <article className="cart panel is-link">
       <Heading customClass="panel-heading">
         Cart
       </Heading>
       <div className="panel-block">
-        <CartItem title="Price" price={123} />
+        <CartItem title="Price" price={wholePrice} />
       </div>
       <ul className="panel-block is-flex is-flex-direction-column">
         <Heading small customClass="is-align-self-flex-start">
@@ -26,7 +34,7 @@ const Cart: FC<CartProps> = ({ items }) => {
         {renderCartItems}
       </ul>
       <div className="panel-block">
-        <input className="input is-link" type="text" placeholder="Search" />
+        <Input placeholder="Discount code" />
       </div>
     </article>
   );

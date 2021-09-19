@@ -1,3 +1,14 @@
 .cart-item {
   width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  strong {
+    margin-left: auto;
+  }
+
+  .button {
+    margin-left: 10px;
+  }
 }
