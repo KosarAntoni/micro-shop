@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import data from '../data/data';
 
 import Card from '../molecules/Card';
-import Cart from '../molecules/Cart';
+import Cart from '../organisms/Cart';
 
 import { CartItemProps } from '../atoms/CartItem/models.d';
 import './Home.scss';
