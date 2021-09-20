@@ -23,6 +23,14 @@ const data = [
       altText: 'Apple Watch SE',
     },
   },
+  {
+    title: 'Apple iPhone 11',
+    price: 2999,
+    image: {
+      imageData: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-select-2019-family?wid=441&hei=529&fmt=jpeg&qlt=95&.v=1567022175704',
+      altText: 'Apple iPhone 11',
+    },
+  },
 ];
 
 export default data;
