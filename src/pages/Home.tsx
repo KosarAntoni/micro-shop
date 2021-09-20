@@ -10,9 +10,16 @@ import 'bulma/css/bulma.css';
 import data from '../data/data';
 
 const Home = () => {
-  const [itemsInCart, setItemsInCart] = useState<CartItemProps[]>([]);
+  const localData = localStorage.getItem('itemsInCartLocalStorage');
+
+  const [itemsInCart, setItemsInCart] = useState<CartItemProps[]>(
+    localData ? JSON.parse(localData) : [],
+  );
 
   const [filteredData, setFilteredData] = useState(data);
+
+  React.useEffect(() => localStorage.setItem('itemsInCartLocalStorage', JSON.stringify(itemsInCart)),
+    [itemsInCart]);
 
   const filterData = (value: string) => {
     const newData = value === ''
