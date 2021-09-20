@@ -36,11 +36,19 @@ const Cart: FC<CartProps> = ({ items }) => {
     />
   ));
 
+  const renderDiscount = currentDiscount !== 0 && (
+    <div className="panel-block is-flex is-justify-content-space-between">
+      <p>Discount:</p>
+      <strong>{` -${currentDiscount}%`}</strong>
+    </div>
+  );
+
   return (
     <article className="cart panel is-link">
       <Heading customClass="panel-heading">
         Cart
       </Heading>
+      {renderDiscount}
       <div className="panel-block">
         <CartItem title="Price" price={wholePrice} />
       </div>
